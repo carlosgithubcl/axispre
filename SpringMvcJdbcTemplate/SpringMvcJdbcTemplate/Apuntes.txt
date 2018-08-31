@@ -1,0 +1,75 @@
+JDBC
+
+@Bean
+	public DataSource getDataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@127.0.0.1:1521:XE");
+		dataSource.setUsername("userdb");
+		dataSource.setPassword("123123");
+		
+		return dataSource;
+	}
+
+----------------------------
+
+POM
+
+<dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0</version>
+</dependency>
+		
+----------------------------
+TABLAS:
+
+
+Original MySql
+
+CREATE TABLE `contact` (
+  `contact_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `telephone` varchar(45) NOT NULL,
+  PRIMARY KEY (`contact_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8
+
+--------------------------
+CREATE TABLE USERDB.CONTACT
+(
+  CONTACT_ID  NUMBER(11) primary key,
+  NAME        VARCHAR2(45 BYTE) not null,
+  EMAIL       VARCHAR2(45 BYTE) not null,
+  ADDRESS     VARCHAR2(45 BYTE) not null,
+  TELEPHONE   VARCHAR2(45 BYTE) not null
+)
+
+------------------
+Secuencia agregada en insert del proyecto 
+
+CREATE SEQUENCE id_contact
+START WITH 1
+INCREMENT BY 1;
+
+String sql = "INSERT INTO contact (CONTACT_ID,name, email, address, telephone)"
+						+ " VALUES (id_contact.nextval,?, ?, ?, ?)";
+
+						
+------------------
+sin PK y Not Null
+
+CREATE TABLE USERDB.CONTACT
+(
+  CONTACT_ID  NUMBER(11),
+  NAME        VARCHAR2(45 BYTE),
+  EMAIL       VARCHAR2(45 BYTE),
+  ADDRESS     VARCHAR2(45 BYTE),
+  TELEPHONE   VARCHAR2(45 BYTE)
+)
+
+
+
+
+
